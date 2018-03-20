@@ -6,4 +6,4 @@ from django.http import HttpResponse
 def home(request):
 
 	# render index
-    return render(request, 'home.html')
+    return render(request, 'GeoClimate_Capture/home.html')
