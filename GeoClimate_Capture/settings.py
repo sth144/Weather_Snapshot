@@ -21,7 +21,8 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7ug6n-r7qa&e+6l18a2@j4!0iarl%=tam$y!^tj0t5&xi=x2_1'
+SECRET_KEY = os.environ.get('SECRET_KEY')
+print('SECRET KEY set from environment: %s' % SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'GeoClimate_Capture',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
