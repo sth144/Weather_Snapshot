@@ -2,4 +2,7 @@ dj-database-url==0.4.2
 gunicorn==19.7.1
 virtualenv==15.1.0
 numpy==1.13.3
+django-numpy==1.0.1
+psycopg2==2.7.4
 Django==1.8
+whitenoise==3.3.1
