@@ -15,14 +15,32 @@
   </head>
   <body>
 
+    <nav class="navbar navbar-default navbar-static-top navbar-inverse">
+
+    </nav>
+
     <!--Block content, templates inserted here-->
 
     {% block content %}
       <link rel="stylesheet" type="text/css" href="static/GeoClimate_Capture/css/theme.css"/>
     {% endblock %}
 
-    <footer>
-      <p>Powered by Dark Sky</p>
+    <footer class="page-footer text-center">
+      <div class="row">
+        <div class="col-md-3">
+          <p><a class="text-white" href="">About</a></p>
+          <p><a class="text-white" href="">Contact</a></p>
+        </div>
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-3">
+          <p><a class="text-white" href="https://www.github.com/sth144"> Check out my GitHub </a></p>
+        </div>
+      </div>
+      <div class="row">
+        <p><a class="text-white" href="">Powered by Dark Sky</a></p>
+        <p>Sean Hinds 2018</p>
+      </div>
     </footer>
   </body>
 </html>

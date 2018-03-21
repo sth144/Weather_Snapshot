@@ -1,0 +1,26 @@
+body {
+  background: #CCEECC;
+}
+
+footer {
+  position: absolute;
+  padding-top: 3%;
+  bottom: 0;
+  height: 290px;
+  width: 100%;
+  color: #EFEFEF;
+  background-color: #222;
+  border-color: #080808;
+}
+
+.jumbotron {
+  top: 0;
+}
+
+.text-white {
+  color: #DDDDDD;
+}
+
+ a.text-white:hover {
+  color: #B0B0B0;
+}
