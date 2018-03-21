@@ -27,7 +27,7 @@ print('SECRET KEY set from environment: %s' % SECRET_KEY)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['weathersnapshot.herokuapp.com']
 
 
 # Application definition
