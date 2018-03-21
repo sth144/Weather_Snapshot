@@ -1,6 +1,4 @@
-body {
-  background: #CCEECC;
-}
+body { }
 
 footer {
   position: absolute;
@@ -23,4 +21,9 @@ footer {
 
  a.text-white:hover {
   color: #B0B0B0;
+}
+
+.bottom-icon {
+  height: 100px;
+  width: 100px;
 }
