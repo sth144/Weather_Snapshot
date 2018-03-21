@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<!-- Base HTML template for all pages on this site-->
+
+<html>
+  <head>
+    <title>Weather Snapshot</title>
+
+    <!--Import icon, Bootstrap, theme, and jQuery-->
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="static/GeoClimate_Capture/css/theme.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  </head>
+  <body>
+
+    <!--Block content, templates inserted here-->
+
+    {% block content %}
+      <link rel="stylesheet" type="text/css" href="static/GeoClimate_Capture/css/theme.css"/>
+    {% endblock %}
+
+    <footer>
+      <p>Powered by Dark Sky</p>
+    </footer>
+  </body>
+</html>
