@@ -11,6 +11,9 @@
 <div class="container container-fluid text-center">
   <p>This Django application uses the Google Geocoding API to map address strings to geographic coordinate pairs.</p>
   <p>Real-time and historical weather data retrieved through the Dark Sky API.</p>
+  {% for entity in ModelTests %}
+    entity.name
+  {% endfor %}
 </div>
 
 {% endblock %}
