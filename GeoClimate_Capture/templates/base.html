@@ -17,7 +17,16 @@
   <body>
 
     <nav class="navbar navbar-default navbar-static-top navbar-inverse">
-
+      <div class="container">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href=""><img class="top-icon" src="static/GeoClimate_Capture/img/Globe-icon.png"></a></li>
+          <li><a href="">Weather Snapshot</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="about">About</a></li>
+          <li><a href="contact">Contact</a></li>
+        </ul>
+      </div>
     </nav>
 
     <!--Block content, templates inserted here-->
@@ -26,7 +35,9 @@
       <link rel="stylesheet" type="text/css" href="static/GeoClimate_Capture/css/theme.css"/>
     {% endblock %}
 
-    <footer class="page-footer text-center">
+    <div class="bottom-filler"></div>
+
+    <div class="alert alert-info text-center" role="alert">
       <div class="row">
         <div class="col-md-3">
           <p><a class="text-white" href="">About</a></p>
@@ -44,6 +55,6 @@
         <p><a class="text-white" href="">Powered by Dark Sky</a></p>
         <p>Sean Hinds 2018</p>
       </div>
-    </footer>
+    </div>
   </body>
 </html>

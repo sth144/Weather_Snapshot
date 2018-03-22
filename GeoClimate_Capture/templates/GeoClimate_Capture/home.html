@@ -11,9 +11,33 @@
 <div class="container container-fluid text-center">
   <p>This Django application uses the Google Geocoding API to map address strings to geographic coordinate pairs.</p>
   <p>Real-time and historical weather data retrieved through the Dark Sky API.</p>
-  {% for entity in ModelTests %}
-    entity.name
-  {% endfor %}
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-2 text-right">
+        <label for="id_post">Input:</label>
+      </div>
+      <div class="col-md-8 text-left">
+        <textarea rows="3" cols="56" name="post" required id="id_post">{{posted}}</textarea>
+      </div>
+    </div><br>
+    <button type="submit">Submit</button>
+  </form><br>
+
+  <div class="row results-row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2 text-right">
+      <strong>Result:</strong>
+    </div>
+    <div class="col-md-8 text-left">
+      {{result}}
+    </div>
+  </div>
+
+
+
 </div>
 
 {% endblock %}

@@ -3,9 +3,20 @@ body { }
 footer {
   position: absolute;
   padding-top: 3%;
-  bottom: 0;
-  height: 290px;
+  bottom: 0px;
+  height: 260px;
   width: 100%;
+  color: #EFEFEF;
+  background-color: #222;
+  border-color: #080808;
+}
+
+/* alert class used as footer */
+.alert {
+  margin-top: 4%;
+  margin-bottom: 0%;
+  padding-top: 3%;
+  height:290px;
   color: #EFEFEF;
   background-color: #222;
   border-color: #080808;
@@ -24,6 +35,15 @@ footer {
 }
 
 .bottom-icon {
-  height: 100px;
-  width: 100px;
+  height: 64px;
+  width: 64px;
 }
+
+.top-icon {
+  height: 22px;
+  width: 22px;
+}
+
+.results-row { }
+
+.bottom-filler { }
