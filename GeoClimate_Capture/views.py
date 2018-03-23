@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 # imports from within application
 from .forms import HomeForm
 from .models import *
+from .process import *
 
 # Handle home requests
 def home(request):
@@ -41,13 +42,30 @@ class HomeView(TemplateView):
 
             # Store cleaned input data
             posted = form.cleaned_data['post']
+            date = str(form.cleaned_data['date'])
 
             # Process data
-            result = posted
+            resultGeo = getGeoFromAddr(posted)
+            coord = (resultGeo['results'][0]['geometry']['location']['lat'], resultGeo['results'][0]['geometry']['location']['lng'])
+            resultWeather = getWeatherFromCoords(coord, date)
 
             # Clear text fields
             form = HomeForm()
 
-        # Render the page with form and result database
-        args = {'form': form, 'posted': posted, 'result': result}
-        return render(request, self.template_name, args)
+            # Parse data from JSON object returned from Google Geocode API
+            latitude = resultGeo['results'][0]['geometry']['location']['lat']
+            longitude = resultGeo['results'][0]['geometry']['location']['lng']
+
+            # Parse data from JSON object returned from Dark Sky API
+            tempHigh = resultWeather['daily']['data'][0]['temperatureHigh']
+            tempLow = resultWeather['daily']['data'][0]['temperatureLow']
+            precip = resultWeather['daily']['data'][0]['precipIntensity']
+            summary = resultWeather['daily']['data'][0]['summary']
+
+            # Render the page with form and result database
+            args = {
+                'form': form, 'posted': posted, 'date': date, 'latitude': latitude,
+                'longitude': longitude, 'tempHigh': tempHigh, 'tempLow': tempLow,
+                'precip': precip, 'summary': summary
+            }
+            return render(request, self.template_name, args)

@@ -9,34 +9,104 @@
 </div>
 
 <div class="container container-fluid text-center">
-  <p>This Django application uses the Google Geocoding API to map address strings to geographic coordinate pairs.</p>
-  <p>Real-time and historical weather data retrieved through the Dark Sky API.</p>
+  <div class="well">
+    <p>This Django application uses the Google Geocoding API to map address strings to geographic coordinate pairs.</p>
+    <p>Real-time and historical weather data retrieved through the Dark Sky API.</p>
+    <hr>
 
-  <form method="POST">
-    {% csrf_token %}
     <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-2 text-right">
-        <label for="id_post">Input:</label>
-      </div>
-      <div class="col-md-8 text-left">
-        <textarea rows="3" cols="56" name="post" required id="id_post">{{posted}}</textarea>
-      </div>
-    </div><br>
-    <button type="submit">Submit</button>
-  </form><br>
 
-  <div class="row results-row">
-    <div class="col-md-1"></div>
-    <div class="col-md-2 text-right">
-      <strong>Result:</strong>
+      <div class="col-md-6">
+
+        <form method="POST">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label for="id_post">Location:</label>
+            </div>
+            <div class="col-md-8 text-left">
+              <textarea rows="1" cols="56" name="post" required id="id_post">{{posted}}</textarea>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <label for="id_date">Date:</label>
+            </div>
+            <div class="col-md-8 text-left">
+              <input type="date" name="date" required id="id_date" value=""></input>
+              <div class="hidden" id="datediv">{{date}}</div>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4 text-left">
+              <button class="btn btn-secondary" aria-haspopup="true" aria-expanded="false" type="submit">Submit</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="row">
+          <div class="col-md-8 text-left">
+            <strong>Result</strong>
+          </div>
+          <div class="col-md-4 text-left">
+          </div>
+        </div>
+
+        <div class="row results-row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8 text-left">
+            <p>Summary: {{summary}}</p>
+            <p>Low Temperature: {{tempLow}}</p>
+            <p>High Temperature: {{tempHigh}}</p>
+            <p>Precipitation: {{precip}}</p>
+          </div>
+          <div class="hidden" id="latitude">{{latitude}}</div>
+          <div class="hidden" id="longitude">{{longitude}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8"></div>
+          <div class="col-md-1 text-left">
+            <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="false">
+              Store
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-6">
+        <strong>Data</strong>
+
+        <table class="text-center" align="center">
+          <thead>
+            <th>Date</th>
+            <th>High Temp</th>
+            <th>Low Temp</th>
+            <th>Precipitation</th>
+            <th>Summary</th>
+          </thead>
+          <tbody>
+            <tr>
+
+            </tr>
+          </tbody>
+        </table>
+
+        <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="false">
+          Reset Table
+        </button>
+        <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="false">
+          Export CSV
+        </button>
+      </div>
+
     </div>
-    <div class="col-md-8 text-left">
-      {{result}}
-    </div>
+
   </div>
 
-
+  <div id="map"></div>
 
 </div>
 
