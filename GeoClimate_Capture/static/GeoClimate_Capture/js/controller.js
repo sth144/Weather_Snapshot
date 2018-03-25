@@ -60,6 +60,9 @@ window.onload = function() {
       type: 'bar',
       data: chartData,
       options: {
+          legend: {
+            position: 'top'
+          },
           scales: {
               yAxes: [{
                 scaleLabel: {
@@ -86,5 +89,9 @@ window.onload = function() {
           }
       }
   });
+
+  document.getElementById("exportButton").onclick = function() {
+    csvExport();
+  }
 
 }

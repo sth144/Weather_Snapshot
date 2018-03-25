@@ -118,7 +118,7 @@
             </form>
           </div>
           <div class="col-md-6 text-left">
-            <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="false" name="exportButton">
+            <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="false" name="exportButton" id="exportButton">
               Export CSV
             </button>
           </div>
@@ -144,8 +144,9 @@
 
 </div>
 
-<script src="static/GeoClimate_Capture/js/map.js"></script>
+<script src="/static/GeoClimate_Capture/js/csvExport.js"></script>
+<script src="/static/GeoClimate_Capture/js/map.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUkwIYOC9g2o1zvdCnTR_vwAZqco5idEo&callback=initMap"></script>
-<script src="static/GeoClimate_Capture/js/controller.js"></script>
+<script src="/static/GeoClimate_Capture/js/controller.js"></script>
 
 {% endblock %}

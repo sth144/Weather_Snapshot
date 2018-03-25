@@ -111,3 +111,9 @@ def about(request):
 
 def contact(request):
     return render(request, 'GeoClimate_Capture/contact.html')
+
+def terms(request):
+    return render(request, 'GeoClimate_Capture/terms.html')
+
+def privacy(request):
+    return render(request, 'GeoClimate_Capture/privacy.html')

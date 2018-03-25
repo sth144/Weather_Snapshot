@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^$', views.HomeView.as_view(), name='home'),
     url(r'^about/', views.about, name='about'),
     url(r'^contact/', views.contact, name='contact'),
+    url(r'^terms/', views.terms, name='terms'),
+    url(r'^privacy/', views.privacy, name='privacy'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
