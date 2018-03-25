@@ -4,11 +4,11 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView
 
 # imports from within application
-from .forms import HomeForm
+from .forms import *
 from .models import *
 from .process import *
 
-# Handle home requests
+# Handle home requests (defunct)
 def home(request):
 
 	# render index
@@ -25,50 +25,89 @@ class HomeView(TemplateView):
     def get(self, request):
 
         # Define the forms
-        form = HomeForm()
+        #form = HomeForm()
+
+        output = WeatherSnapshot.objects.all()
 
         # Render the page with the form included
-        args = {'form': form,}
+        args = {'output': output}
         return render(request, self.template_name, args)
 
     # Handle HTTP POST requests through this view
     def post(self, request):
 
-        # Define the form
-        form = HomeForm(request.POST)
+        if request.method=='POST' and 'submitButton' in request.POST:
+            # Define the form
+            form = HomeForm(request.POST)
 
-        # Validate input
-        if form.is_valid():
+            # Validate input
+            if form.is_valid():
 
-            # Store cleaned input data
-            posted = str(form.cleaned_data['post'])
-            date = str(form.cleaned_data['date'])
+                # Store cleaned input data
+                posted = str(form.cleaned_data['post'])
+                date = str(form.cleaned_data['date'])
 
-            # Process data
-            resultGeo = getGeoFromAddr(posted)
-            coord = (resultGeo['results'][0]['geometry']['location']['lat'], resultGeo['results'][0]['geometry']['location']['lng'])
-            resultWeather = getWeatherFromCoords(coord, date)
+                # Process data
+                resultGeo = getGeoFromAddr(posted)
+                coord = (resultGeo['results'][0]['geometry']['location']['lat'], resultGeo['results'][0]['geometry']['location']['lng'])
+                resultWeather = getWeatherFromCoords(coord, date)
 
-            # Clear text fields
-            form = HomeForm()
+                # Clear text fields
+                form = HomeForm()
 
-            # Parse data from JSON object returned from Google Geocode API
-            latitude = resultGeo['results'][0]['geometry']['location']['lat']
-            longitude = resultGeo['results'][0]['geometry']['location']['lng']
+                # Parse data from JSON object returned from Google Geocode API
+                latitude = resultGeo['results'][0]['geometry']['location']['lat']
+                longitude = resultGeo['results'][0]['geometry']['location']['lng']
 
-            # Parse data from JSON object returned from Dark Sky API
-            tempHigh = resultWeather['daily']['data'][0]['temperatureHigh']
-            tempLow = resultWeather['daily']['data'][0]['temperatureLow']
-            precip = resultWeather['daily']['data'][0]['precipIntensity']
-            summary = resultWeather['daily']['data'][0]['summary']
+                # Parse data from JSON object returned from Dark Sky API to output result to user
+                high_temp = resultWeather['daily']['data'][0]['temperatureHigh']
+                low_temp = resultWeather['daily']['data'][0]['temperatureLow']
+                precipitation = resultWeather['daily']['data'][0]['precipIntensity']
+                summary = resultWeather['daily']['data'][0]['summary']
 
-            output = ModelTest.objects.all()
-            print(output)
+                output = WeatherSnapshot.objects.all()
+                print(output)
 
-            # Render the page with form and result database
-            args = {
-                'form': form, 'posted': posted, 'date': date, 'latitude': latitude,
-                'longitude': longitude, 'tempHigh': tempHigh, 'tempLow': tempLow,
-                'precip': precip, 'summary': summary, 'output': output
-            }
-            return render(request, self.template_name, args)
+                # Render the page with form and result database
+                args = {
+                    'form': form, 'posted': posted, 'date': date, 'latitude': latitude,
+                    'longitude': longitude, 'high_temp': high_temp, 'low_temp': low_temp,
+                    'precipitation': precipitation, 'summary': summary, 'output': output
+                }
+                return render(request, self.template_name, args)
+
+        elif request.method=='POST' and 'storeButton' in request.POST:
+
+            # Define form architecture
+            form = WeatherSnapshotForm(request.POST)
+            print('storing data')
+
+            if form.is_valid():
+                print('form is valid')
+                _obj = form.save(commit=False)
+                _obj.save()
+                text = form.cleaned_data['location']
+                form = WeatherSnapshotForm()
+            #else:
+            #    print('problem adding object')
+            #    return render(request, self.template_name)
+
+            #output = WeatherSnapshot.objects.all()
+            #args = {'output': output}
+            return redirect('/')
+
+        elif request.method=='POST' and 'resetButton' in request.POST:
+            print('deleting')
+            #form = ResetTableForm(request.POST)
+
+            #if form.is_valid():
+            WeatherSnapshot.objects.all().delete()
+            return redirect('/')
+            #else:
+            #    print('delete failed')
+
+def about(request):
+    return render(request, 'GeoClimate_Capture/about.html')
+
+def contact(request):
+    return render(request, 'GeoClimate_Capture/contact.html')

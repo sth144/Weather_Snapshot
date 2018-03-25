@@ -8,7 +8,7 @@
   <h3>Track weather and climate for any location on Earth</h3>
 </div>
 
-<div class="container container-fluid text-center">
+<div class="container container-fluid text-center container-wide">
   <div class="well">
     <p>This Django application uses the Google Geocoding API to map address strings to geographic coordinate pairs.</p>
     <p>Real-time and historical weather data retrieved through the Dark Sky API.</p>
@@ -40,47 +40,54 @@
           <div class="row">
             <div class="col-md-8"></div>
             <div class="col-md-4 text-left">
-              <button class="btn btn-secondary" aria-haspopup="true" aria-expanded="false" type="submit">Submit</button>
+              <button class="btn btn-secondary" aria-haspopup="true" aria-expanded="false" type="submit" name="submitButton">Submit</button>
             </div>
           </div>
         </form>
 
-        <div class="row">
-          <div class="col-md-8 text-left">
-            <strong>Result</strong>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-8 text-left">
+              <strong>Result</strong>
+            </div>
+            <div class="col-md-4 text-left">
+            </div>
           </div>
-          <div class="col-md-4 text-left">
-          </div>
-        </div>
 
-        <div class="row results-row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8 text-left">
-            <p>Summary: {{summary}}</p>
-            <p>Low Temperature: {{tempLow}}</p>
-            <p>High Temperature: {{tempHigh}}</p>
-            <p>Precipitation: {{precip}}</p>
+          <div class="row results-row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 text-left">
+              <p>Summary: {{summary}}</p><input name="summary" required id="id_summary" value="" type="hidden"><div class="hidden" id="summary"> {{summary}}</div>
+              <p>Low Temperature: {{low_temp}}</p><input name="low_temp" required id="id_low_temp" value="" type="hidden"><div class="hidden" id="low_temp">{{low_temp}}</div>
+              <p>High Temperature: {{high_temp}}</p><input name="high_temp" required id="id_high_temp" value="" type="hidden"><div class="hidden" id="high_temp">{{high_temp}}</div>
+              <p>Precipitation: {{precipitation}}</p><input name="precipitation" required id="id_precipitation" value="" type="hidden"><div class="hidden" id="precipitation">{{precipitation}}</div>
+              <a class="" href="https://darksky.net/poweredby/"><img class="poweredby" src="/static/GeoClimate_Capture/img/poweredbydark.png"></a>
+            </div>
+            <div class="hidden" id="latitude">{{latitude}}</div>
+            <div class="hidden" id="longitude">{{longitude}}</div>
+            <input class="hidden" type="date" name="date" required id="id_date_res" value=""><div class="hidden" id="date">{{date}}</div>
+            <input name="location" required id="id_location" value="" type="hidden"><div class="hidden" id="posted">{{posted}}</div>
           </div>
-          <div class="hidden" id="latitude">{{latitude}}</div>
-          <div class="hidden" id="longitude">{{longitude}}</div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-8"></div>
-          <div class="col-md-1 text-left">
-            <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="false">
-              Store
-            </button>
+          <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-1 text-left">
+              <button class="btn btn-secondary" aria-haspopup="true" aria-expanded="false" type="submit" name="storeButton">
+                Store
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
 
       </div>
 
       <div class="col-md-6">
         <strong>Data</strong>
 
-        <table class="text-center" align="center">
+        <table class="table text-center" align="center" id="tab">
           <thead>
+            <th>Location</th>
             <th>Date</th>
             <th>High Temp</th>
             <th>Low Temp</th>
@@ -88,30 +95,57 @@
             <th>Summary</th>
           </thead>
           <tbody>
-            <tr>
-
-            </tr>
+            {% for obj in output %}
+              <tr>
+                <td>{{obj.location}}</td>
+                <td>{{obj.date}}</td>
+                <td>{{obj.high_temp}}</td>
+                <td>{{obj.low_temp}}</td>
+                <td>{{obj.precipitation}}</td>
+                <td>{{obj.summary}}</td>
+              </tr>
+            {% endfor %}
           </tbody>
         </table>
 
-        {% for obj in output %}
-          <p>Name: {{obj.name}}</p>
-        {% endfor %}
+        <div class="row">
+          <div class="col-md-6 text-right">
+            <form method="POST">
+              {% csrf_token %}
+              <button class="btn btn-secondary" type="submit" aria-haspopup="true" aria-expanded="false" name="resetButton">
+                Reset Table
+              </button>
+            </form>
+          </div>
+          <div class="col-md-6 text-left">
+            <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="false" name="exportButton">
+              Export CSV
+            </button>
+          </div>
 
-        <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="false">
-          Reset Table
-        </button>
-        <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="false">
-          Export CSV
-        </button>
+        </div>
+
       </div>
 
     </div>
 
   </div>
 
-  <div id="map"></div>
+  <div class="row">
+    <div class="col-md-6">
+      <div id="map"></div>
+    </div>
+    <div class="col-md-6">
+      <canvas id="myChart"></canvas>
+      <script>
+      </script>
+    </div>
+  </div>
 
 </div>
+
+<script src="static/GeoClimate_Capture/js/map.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUkwIYOC9g2o1zvdCnTR_vwAZqco5idEo&callback=initMap"></script>
+<script src="static/GeoClimate_Capture/js/controller.js"></script>
 
 {% endblock %}

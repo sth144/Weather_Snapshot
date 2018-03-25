@@ -5,10 +5,13 @@ from django.contrib.auth.models import AnonymousUser, User
 
 class ModelTest(models.Model):
 
-    name=models.CharField(max_length=500)
+    name = models.CharField(max_length=500)
 
-class ModelTest_Form(ModelForm):
+class WeatherSnapshot(models.Model):
 
-    class Meta:
-        model = ModelTest
-        fields = '__all__'
+    location = models.CharField(max_length=500)
+    date = models.CharField(max_length=500)
+    high_temp = models.CharField(max_length=500)
+    low_temp = models.CharField(max_length=500)
+    precipitation = models.CharField(max_length=500)
+    summary = models.CharField(max_length=500)

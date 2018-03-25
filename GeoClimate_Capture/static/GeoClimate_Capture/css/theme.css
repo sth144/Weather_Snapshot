@@ -1,5 +1,7 @@
 body { }
 
+
+
 hr, .alert-info hr {
   border-top: 1px solid #B0B0B0;
 }
@@ -32,7 +34,13 @@ table {
 }
 
 .container-nav {
+  padding: 0;
   margin-bottom: 0;
+}
+
+.container-wide {
+  width: 96%;
+  margin: 0 auto;
 }
 
 .jumbotron {
@@ -61,7 +69,17 @@ table {
 
 .bottom-filler { }
 
+.poweredby {
+  height: 60px;
+  width: 260px;
+}
+
 #map {
  height: 400px;
  width: 100%;
+}
+
+#myChart {
+  height: 400px;
+  width: 100%;
 }

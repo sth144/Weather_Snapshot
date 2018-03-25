@@ -7,3 +7,4 @@ class WSAdmin(admin.ModelAdmin):
 # register models
 
 admin.site.register(ModelTest)
+admin.site.register(WeatherSnapshot)
