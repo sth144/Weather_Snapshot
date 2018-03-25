@@ -62,10 +62,13 @@ class HomeView(TemplateView):
             precip = resultWeather['daily']['data'][0]['precipIntensity']
             summary = resultWeather['daily']['data'][0]['summary']
 
+            output = ModelTest.objects.all()
+            print(output)
+
             # Render the page with form and result database
             args = {
                 'form': form, 'posted': posted, 'date': date, 'latitude': latitude,
                 'longitude': longitude, 'tempHigh': tempHigh, 'tempLow': tempLow,
-                'precip': precip, 'summary': summary
+                'precip': precip, 'summary': summary, 'output': output
             }
             return render(request, self.template_name, args)

@@ -94,6 +94,10 @@
           </tbody>
         </table>
 
+        {% for obj in output %}
+          <p>Name: {{obj.name}}</p>
+        {% endfor %}
+
         <button class="btn btn-secondary" type="button" aria-haspopup="true" aria-expanded="false">
           Reset Table
         </button>
