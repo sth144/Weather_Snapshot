@@ -41,7 +41,7 @@ class HomeView(TemplateView):
         if form.is_valid():
 
             # Store cleaned input data
-            posted = form.cleaned_data['post']
+            posted = str(form.cleaned_data['post'])
             date = str(form.cleaned_data['date'])
 
             # Process data
