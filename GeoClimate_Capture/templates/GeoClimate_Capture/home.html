@@ -10,8 +10,9 @@
 
 <div class="container container-fluid text-center container-wide">
   <div class="well">
-    <p>This Django application uses the Google Geocoding API to map address strings to geographic coordinate pairs.</p>
-    <p>Real-time and historical weather data retrieved through the Dark Sky API.</p>
+    <p>This Django application uses the Google Geocoding API to map address strings to geographic coordinate pairs.<br>
+      Real-time and historical weather data retrieved through the Dark Sky API.<br>
+      Historical data may not be available for all locations and time-points.</p>
     <hr>
 
     <div class="row">
@@ -146,7 +147,8 @@
 
 <script src="/static/GeoClimate_Capture/js/csvExport.js"></script>
 <script src="/static/GeoClimate_Capture/js/map.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUkwIYOC9g2o1zvdCnTR_vwAZqco5idEo&callback=initMap"></script>
+<!--no security concern for Google maps API-->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{MAP_KEY}}"></script>
 <script src="/static/GeoClimate_Capture/js/controller.js"></script>
 
 {% endblock %}

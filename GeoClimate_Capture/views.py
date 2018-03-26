@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import AnonymousUser, User
 from django.http import HttpResponse
@@ -27,10 +28,13 @@ class HomeView(TemplateView):
         # Define the forms
         #form = HomeForm()
 
+        # serve Google Maps Key (stored in environment)
+        MAP_KEY = os.environ.get('MAP_KEY')
+
         output = WeatherSnapshot.objects.all()
 
         # Render the page with the form included
-        args = {'output': output}
+        args = {'output': output, 'MAP_KEY': MAP_KEY}
         return render(request, self.template_name, args)
 
     # Handle HTTP POST requests through this view
@@ -65,6 +69,9 @@ class HomeView(TemplateView):
                 precipitation = resultWeather['daily']['data'][0]['precipIntensity']
                 summary = resultWeather['daily']['data'][0]['summary']
 
+                # serve Google Maps Key (stored in environment)
+                MAP_KEY = os.environ.get('MAP_KEY')
+
                 output = WeatherSnapshot.objects.all()
                 print(output)
 
@@ -72,7 +79,8 @@ class HomeView(TemplateView):
                 args = {
                     'form': form, 'posted': posted, 'date': date, 'latitude': latitude,
                     'longitude': longitude, 'high_temp': high_temp, 'low_temp': low_temp,
-                    'precipitation': precipitation, 'summary': summary, 'output': output
+                    'precipitation': precipitation, 'summary': summary, 'output': output,
+                    'MAP_KEY': MAP_KEY,
                 }
                 return render(request, self.template_name, args)
 
